@@ -9,7 +9,8 @@ dbws = dbwb['Лист1']
 for i in dbws['A']:  # Добавляем базу в изначальный список.
     compare_list_1.append(i.value)
 
-b_swb = load_workbook(filename=r'C:\Users\Admin\Desktop\Источники данных\Аналитика 2.0\Битрикс.xlsx')  # Загружаем свежий Битрикс.
+b_swb = load_workbook(filename=r'C:\Users\Admin\Desktop\Источники данных\Аналитика 2.0\Битрикс.xlsx')  # Загружаем
+# свежий Битрикс.
 b_sws = b_swb['Битрикс']
 for i in b_sws['A']:  # Добавляем Битрикс в список для сравнения.
     compare_list_2.append(i.value)
@@ -25,7 +26,8 @@ new_deals = compare_list_2  # Всё, что осталось во втором 
 
 print('Новые сделки: ', len(new_deals))  # Вывод количества новых сделок.
 print()  # Разрыв строки.
-print('Потерянные сделки: ', len(lost_deals) - 1)  # Вывод количества потерянных сделок.
+print('Потерянные сделки: ', len(lost_deals) - 1)  # Вывод количества потерянных сделок(первое значение,
+# по непонятной причине, - None).
 
 for i in new_deals:  # Добавляем к основной базе новые сделки в колоночку.
     dbws.append([i, ])
