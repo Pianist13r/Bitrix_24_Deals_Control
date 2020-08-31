@@ -28,11 +28,11 @@ print()  # Разрыв строки.
 print('Потерянные сделки: ', len(lost_deals))  # Вывод количества потерянных сделок.
 
 for i in new_deals:  # Добавляем к основной базе новые сделки в колоночку.
-    dbws.append([i, None])
+    dbws.append([i, ])
 dbwb.save('All_DEALS.xlsx')  # Сохраняем базу данных.
 
 lost_wb = Workbook()  # Создаём рабочую книгу под потеряшек.
 lost_ws = lost_wb.active
 for i in lost_deals:  # Добавляем каждую потеряшку в таблицу с новой строки.
-    lost_ws.append([i, None])
+    lost_ws.append([i, ])
 lost_wb.save('LOST.xlsx')  # Сохраняем потеряшек.
