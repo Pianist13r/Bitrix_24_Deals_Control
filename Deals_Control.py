@@ -1,28 +1,32 @@
 from openpyxl import load_workbook  # Импортируем всё необходимое.
 from openpyxl import Workbook
 
-compare_list_1 = []  # Создаём изначальный список.
-compare_list_2 = []  # Создаём список для сравнения.
+compare_set_1 = set()  # Создаём изначальный список.
+compare_set_2 = set()  # Создаём список для сравнения.
 lost_deals = []  # Создаём список потерянных сделок.
 dbwb = load_workbook(filename='All_DEALS.xlsx')  # Загружаем текущую базу.
 dbws = dbwb['Лист1']
 for i in dbws['A']:  # Добавляем базу в изначальный список.
-    compare_list_1.append(i.value)
+    compare_set_1.add(i.value)
 
 b_swb = load_workbook(filename=r'C:\Users\Admin\Desktop\Источники данных\Аналитика 2.0\Битрикс.xlsx')  # Загружаем
 # свежий Битрикс.
 b_sws = b_swb['Битрикс']
 for i in b_sws['A']:  # Добавляем Битрикс в список для сравнения.
-    compare_list_2.append(i.value)
-compare_list_2.remove('ID')  # Убираем "ID".
+    compare_set_2.add(i.value)
+compare_set_2.discard('ID')  # Убираем "ID".
 
-for i in compare_list_1:  # Проходим по каждому элементу изначального списка.
-    if i in compare_list_2:  # Если есть в новой базе - удаляем из новой (значит всё ок с ней).
-        compare_list_2.remove(i)
+for i in compare_set_2:  # Проверяем оставшиеся позиции второго списка на тип данных.
+    if type(i) != int:
+        i = int(i)
+
+for i in compare_set_1:  # Проходим по каждому элементу изначального списка.
+    if i in compare_set_2:  # Если есть в новой базе - удаляем из новой (значит всё ок с ней).
+        compare_set_2.discard(i)
     else:  # Если нет в новой базе - добавляем к списку потеряных.
         lost_deals.append(i)
 
-new_deals = compare_list_2  # Всё, что осталось во втором списке, отсутствовало в первом, значит, это новые сделки.
+new_deals = compare_set_2  # Всё, что осталось во втором списке, отсутствовало в первом, значит, это новые сделки.
 
 print('Новые сделки: ', len(new_deals))  # Вывод количества новых сделок.
 print()  # Разрыв строки.
