@@ -8,8 +8,7 @@ ad_ws = ad_wb['Лист1']
 for i in ad_ws['A']:  # Добавляем базу в изначальный список.
     compare_set_old.add(i.value)
 
-nd_wb = load_workbook(filename=r'C:\Users\Admin\Desktop\Источники данных\Аналитика 2.0\Битрикс.xlsx')  # Загружаем
-# свежий Битрикс.
+nd_wb = load_workbook(filename=r'C:\Users\Admin\Desktop\Источники данных\Аналитика 2.0\Битрикс.xlsx')  # Загружаем свежий Битрикс.
 nd_ws = nd_wb['Битрикс']
 for i in nd_ws['A']:  # Добавляем Битрикс в список для сравнения.
     compare_set_new.add(i.value)
