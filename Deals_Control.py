@@ -7,24 +7,23 @@ ad_wb = load_workbook(filename='All_DEALS.xlsx')  # Загружаем теку�
 ad_ws = ad_wb['Лист1']
 for i in ad_ws['A']:  # Добавляем базу в изначальный список.
     compare_set_old.add(i.value)
+while None in compare_set_old:
+    compare_set_old.remove(None)
 
 nd_wb = load_workbook(filename=r'C:\Users\Admin\Desktop\Источники данных\Аналитика 2.0\Битрикс.xlsx')  # Загружаем свежий Битрикс.
 nd_ws = nd_wb['Битрикс']
 for i in nd_ws['A']:  # Добавляем Битрикс в список для сравнения.
     compare_set_new.add(i.value)
 compare_set_new.discard('ID')  # Убираем "ID".
+while None in compare_set_new:
+    compare_set_new.remove(None)
 
 for i in compare_set_new:  # Проверяем оставшиеся позиции второго списка на тип данных.
     if type(i) != int:
         i = int(i)
 
 lost_deals = compare_set_old - compare_set_new  # Старая база - новая база = потеряшки.
-while None in lost_deals:
-    lost_deals.remove(None)
-
 new_deals = compare_set_new - compare_set_old  # Новая база - старые сделки = новые сделки.
-while None in new_deals:
-    new_deals.remove(None)
 
 print('Новые сделки: ', len(new_deals))  # Вывод количества новых сделок.
 print()  # Разрыв строки.
